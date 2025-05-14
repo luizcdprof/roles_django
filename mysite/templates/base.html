@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}{% endblock %}</title>
+    </head>
+    <body>
+        <nav>
+            <a href="{% url 'home' %}">Home</a>
+            
+            {% if user.is_authenticated %}
+                &ensp;|&ensp;
+                <a href="{% url 'usuario_sair' %}">Sair</a>
+                &ensp;|&ensp;
+                <a href="{% url 'usuario_painel' %}">Painel</a>
+                {% if usuario %}
+                    {% if usuario.role and usuario.role.nome == "Admin" or usuario.role.nome == "Gerente" %}
+                        &ensp;|&ensp;
+                        <a href="{% url 'usuario_listar' %}">Listar</a>    
+                    {% endif %}
+                
+                    {% if usuario.role and usuario.role.nome == "Admin" %}
+                        &ensp;|&ensp;
+                        <a href="{% url 'usuario_cadastrar' %}">Cadastrar</a>
+                    {% endif %}
+
+                {% endif %}
+            {% else %}
+                &ensp;|&ensp;
+                <a href="{% url 'usuario_login' %}">Login</a>
+            {% endif %}
+            
+        </nav>
+
+        <header>
+            {% block header %}
+            {% endblock %}
+        </header>
+        
+
+        <main>
+            {% block content %}
+            {% endblock %}
+        </main>
+
+        <footer>
+            {% block footer %}
+            {% endblock %}
+        </footer>
+    </body>
+</html>

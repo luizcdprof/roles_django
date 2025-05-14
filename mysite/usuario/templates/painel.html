@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Login
+{% endblock %}
+
+{% block header %}
+    <h1>Painel</h1>
+{% endblock %}
+
+{% block content %}
+    <h2>Olá, {{ usuario.user.username }}!</h2>
+    {% if usuario and usuario.role %}
+        <p>Your role is: {{ usuario.role.nome }}</p>
+    {% elif usuario and not usuario.role %}
+        <p>This user does not have a role assigned.</p>
+    {% else %}
+        <p>No user information available.</p>
+    {% endif %}
+{% endblock %}
